@@ -3,7 +3,7 @@ const express = require('express');
 const { signup, login, logout, getUser } = require('../controllers/userController')
 const { createPost, updatePost, deletePost, getPost, getAllPosts } = require('../controllers/blogController');
 const { authenticateToken, createNewToken } = require('../controllers/jwtController');
-const { getImage } = require('../controllers/cloudimgController');
+// const { getImage } = require('../controllers/cloudimgController');
 // const { uploadImage, getImage } = require('../controllers/imageController');
 
 // const upload = require('../utils/upload');
@@ -25,6 +25,6 @@ router.get('/blog/posts', authenticateToken, getAllPosts);
 
 // router.post('/file/upload', upload.single('file'), uploadImage);
 // router.get('/file/:filename', getImage);
-router.post('/cloudinary/upload', authenticateToken, getImage)
+// router.post('/cloudinary/upload', authenticateToken, getImage)
 
 module.exports = router;

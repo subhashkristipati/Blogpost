@@ -13,7 +13,11 @@ const signup = async (request, response) => {
         const newUser = new User(user);
         await newUser.save();
 
-        return response.status(200).json({ msg: 'Signup successful' });
+        return response.status(200).json({
+            msg: 'Signup successful',
+            name: newUser.username,
+            email: newUser.email
+        });
     } catch (error) {
         console.log(error);
         return response.status(500).json({

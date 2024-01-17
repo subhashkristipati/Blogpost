@@ -27,7 +27,7 @@ const Update = () => {
         const fetchData = async () => {
             try {
                 const response = await api.get(`/blog/post/${id}`);
-                console.log(response);
+                // console.log(response);
                 if (response.isSuccess) {
                     setPost(response.data);
                 }
@@ -59,6 +59,14 @@ const Update = () => {
                 console.error('Error uploading image to Cloudinary:', error);
             } finally {
                 setLoading(false);
+            }
+        }
+        else {
+            try {
+                updateBlogPost({ ...post, picture: post.picture });
+            }
+            catch (error) {
+                console.log(error);
             }
         }
     };

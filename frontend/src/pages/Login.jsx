@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import api from '../api/api';
-// import { DataContext } from '../context/DataProvider';
+import { DataContext } from '../context/DataProvider';
 
 const loginInitialValues = {
     email: '',
@@ -20,6 +20,7 @@ const Login = ({ isUserAuthenticated }) => {
     const [signup, setSignup] = useState(signupInitialValues);
     const [error, showError] = useState('');
     const [account, toggleAccount] = useState('login');
+    const { setAccountfun } = useContext(DataContext)
 
     const navigate = useNavigate();
 
@@ -43,6 +44,8 @@ const Login = ({ isUserAuthenticated }) => {
 
                 sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
                 sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+                // console.log(response.data);
+                setAccountfun({ username: response.data.name, email: response.data.email })
 
                 isUserAuthenticated(true);
                 setLogin(loginInitialValues);
@@ -61,6 +64,8 @@ const Login = ({ isUserAuthenticated }) => {
             const response = await api.post('/user/signup', signup);
             if (response.isSuccess) {
                 showError('');
+                // console.log(response.data);
+                setAccountfun({ username: response.data.name, email: response.data.email })
                 setSignup(signupInitialValues);
                 toggleAccount('login');
                 navigate('/')

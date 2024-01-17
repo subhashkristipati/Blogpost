@@ -6,10 +6,14 @@ export const DataContext = createContext(null);
 const DataProvider = ({ children }) => {
     const [account, setAccount] = useState({ username: '', email: '' });
 
+    const setAccountfun = (data) => {
+        setAccount(data);
+        // console.log(data);
+    }
+
     const getUser = async () => {
         const token = sessionStorage.getItem('accessToken');
         const response = await api.post('/user/getUser', { token })
-        // console.log(response);
         setAccount(response.data)
     }
 
@@ -18,7 +22,7 @@ const DataProvider = ({ children }) => {
     }, [])
 
     return (
-        <DataContext.Provider value={{ account }}>
+        <DataContext.Provider value={{ account, setAccountfun }}>
             {children}
         </DataContext.Provider>
     )
