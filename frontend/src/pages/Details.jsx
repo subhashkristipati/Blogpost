@@ -50,13 +50,22 @@ const Details = () => {
                         <img className="block-card__img" src={post.picture || url} alt="post" />
                     </div>
                     <div className="blog-card__content">
-                        <span className="blog-card__code">{new Date(post.createdDate).toDateString()}</span>
+                        <div className="float-right">
+                            {account.username === post.username && (
+                                <>
+                                    <Link to={`/update/${id}`}>
+                                        <button className="blog-card__button">Edit</button>
+                                    </Link>
+                                    <button className="blog-card__button" onClick={deleteBlog}>Delete</button>
+                                </>
+                            )}
+                        </div>
                         <h1 className="blog-card__title text-center">{post.title}</h1>
                         <div className="flex items-center justify-between text-gray-500 mt-4">
                             <Link to={`/?username=${post.username}`} className="text-decoration-none">
                                 <p className="font-semibold">Author: {post.username}</p>
                             </Link>
-                            <p>{new Date(post.createdDate).toDateString()}</p>
+                            <p className='blog-card__code'>{new Date(post.createdDate).toDateString()}</p>
                         </div>
                         <p className="blog-card__text">{post.description}</p>
                         <p className='blog-card__text'>
@@ -66,16 +75,6 @@ const Details = () => {
                             Aliquam bibendum, turpis sit amet volutpat tempus, purus nibh cursus lacus, vel hendrerit magna ipsum et lorem.
                             Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec sit amet magna lacus.
                         </p>
-                    </div>
-                    <div className="float-right">
-                        {account.username === post.username && (
-                            <>
-                                <Link to={`/update/${id}`}>
-                                    <button className="blog-card__button">Edit</button>
-                                </Link>
-                                <button className="blog-card__button" onClick={deleteBlog}>Delete</button>
-                            </>
-                        )}
                     </div>
                 </div>
             </div>

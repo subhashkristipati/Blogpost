@@ -136,7 +136,7 @@ code {
 }
 
 .blog-card__title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
     color: #0d0925;
     margin-bottom: 20px;
@@ -146,6 +146,7 @@ code {
     color: #4e4a67;
     margin-bottom: 30px;
     line-height: 1.5em;
+    font-size: 17px;
 }
 
 .blog-card {
@@ -165,4 +166,10 @@ code {
     @media screen and (max-width: 576px) {
         width: 95%;
     }
+}
+
+.float-right {
+    position: relative;
+    bottom: 10px;
+    left: 20px
 }

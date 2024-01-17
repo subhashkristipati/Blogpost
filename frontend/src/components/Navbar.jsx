@@ -4,11 +4,16 @@ import { DataContext } from "../context/DataProvider";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { account } = useContext(DataContext);
+    const { setAccountfun, account } = useContext(DataContext);
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const url = 'https://ps.w.org/user-avatar-reloaded/assets/icon-128x128.png?rev=2540745'
 
-    const logout = async () => navigate('/account');
+    const logout = async () => {
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('refreshToken');
+        setAccountfun({ username: '', email: '' });
+        navigate('/account')
+    }
 
     return (
         <header className="bg-black text-white">
@@ -52,7 +57,7 @@ const Navbar = () => {
                                 </div>
                                 <ul className="py-2">
                                     <li>
-                                        <Link to="/accout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={logout}>Sign out</Link>
+                                        <Link to='/account' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={logout}>Sign out</Link>
                                     </li>
                                 </ul>
                             </div>
