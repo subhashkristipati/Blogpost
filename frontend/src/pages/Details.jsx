@@ -52,12 +52,12 @@ const Details = () => {
                     <div className="blog-card__content">
                         <div className="float-right">
                             {account.username === post.username && (
-                                <>
+                                <div>
                                     <Link to={`/update/${id}`}>
                                         <button className="blog-card__button">Edit</button>
                                     </Link>
                                     <button className="blog-card__button" onClick={deleteBlog}>Delete</button>
-                                </>
+                                </div>
                             )}
                         </div>
                         <h1 className="blog-card__title text-center">{post.title}</h1>
