@@ -41,7 +41,7 @@ const Myposts = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {filteredPosts.map((post) => (
                             <div key={post._id}>
-                                <Link to={`details/${post._id}`} className="no-underline text-black">
+                                <Link to={`/details/${post._id}`} className="no-underline text-black">
                                     <Post post={post} />
                                 </Link>
                             </div>
