@@ -1,22 +1,12 @@
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-// const svg1 = (
-//     <svg
-//         xmlns="http://www.w3.org/2000/svg"
-//         fill="none"
-//         viewBox="0 0 24 24"
-//         strokeWidth={1.5}
-//         stroke="currentColor"
-//         className="w-6 h-6 inline-block align-text-bottom"
-//     >
-//         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-//     </svg>
-// );
-
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { DataContext } from "../context/DataProvider";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const { account } = useContext(DataContext);
+    const [isDropdownVisible, setDropdownVisible] = useState(false);
+    const url = 'https://ps.w.org/user-avatar-reloaded/assets/icon-128x128.png?rev=2540745'
 
     const logout = async () => navigate('/account');
 
@@ -40,7 +30,35 @@ const Navbar = () => {
                     <Link to='/' className="nav-link">HOME</Link>
                     <Link to='/myposts' className="nav-link">MY POSTS</Link>
                     <Link to='/create' className="nav-link">CREATE POSTS</Link>
-                    <Link to='/account' onClick={logout} className="nav-link">LOGOUT</Link>
+
+                    <div className="relative">
+                        <button
+                            type="button"
+                            className="mt-1 flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            id="user-menu-button"
+                            onClick={() => setDropdownVisible(!isDropdownVisible)}
+                            aria-expanded={isDropdownVisible}
+                        >
+                            <span className="sr-only">Open user menu</span>
+                            <img className="w-8 h-8 rounded-full" src={url} alt="" />
+                        </button>
+
+                        {/* User dropdown content */}
+                        {isDropdownVisible && (
+                            <div className="absolute right-0 mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                                <div className="px-4 py-3">
+                                    <span className="block text-sm text-gray-900 dark:text-white">{account.username}</span>
+                                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">{account.email}</span>
+                                </div>
+                                <ul className="py-2">
+                                    <li>
+                                        <Link to="/accout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onClick={logout}>Sign out</Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+
                 </nav>
             </div>
         </header>
